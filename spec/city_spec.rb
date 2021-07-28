@@ -15,4 +15,25 @@ describe '#City' do
     end
   end
 
+  describe('.all') do
+    it("returns a list of all cities") do
+      city1 = City.new({:name => "Portland", :train_id => @train.id, :id => nil})
+      city1.save()
+      city2 = City.new({:name => "LA", :train_id => @train.id, :id => nil})
+      city2.save()
+      expect(City.all).to(eq([city1, city2]))
+    end
+  end
+
+  describe('.clear') do
+    it("clears all cities") do
+      city1 = City.new({:name => "Portland", :train_id => @train.id, :id => nil})
+      city1.save()
+      city2 = City.new({:name => "LA", :train_id => @train.id, :id => nil})
+      city2.save()
+      City.clear()
+      expect(City.all).to(eq([]))
+    end
+  end
+
 end
