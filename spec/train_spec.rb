@@ -58,27 +58,27 @@ describe '#Train' do
     end
   end
 
-  # describe('#delete') do
-  #   it("deletes all trains belonging to a deleted album") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     song = Song.new({:name => "Naima", :album_id => album.id, :id => nil})
-  #     song.save()
-  #     album.delete()
-  #     expect(Song.find(song.id)).to(eq(nil))
-  #   end
-  # end
+  describe('#delete') do
+    it("deletes all cities belonging to a deleted train") do
+      train1 = Train.new({:name => "Choo Choo", :id => nil})
+      train1.save()
+      city1 = City.new({:name => "Portland", :train_id => train1.id, :id => nil})
+      city1.save()
+      train1.delete()
+      expect(City.find(city1.id)).to(eq(nil))
+    end
+  end
 
-  # describe('#songs') do
-  #   it("returns an album's songs") do
-  #     album = Album.new({:name => "A Love Supreme", :id => nil})
-  #     album.save()
-  #     song = Song.new({:name => "Naima", :album_id => album.id, :id => nil})
-  #     song.save()
-  #     song2 = Song.new({:name => "Cousin Mary", :album_id => album.id, :id => nil})
-  #     song2.save()
-  #     expect(album.songs).to(eq([song, song2]))
-  #   end
-  # end
+  describe('#cities') do
+    it("returns a train's cities") do
+      train1 = Train.new({:name => "Choo Hoo", :id => nil})
+      train1.save()
+      city1 = City.new({:name => "Phoenix", :train_id => train1.id, :id => nil})
+      city1.save()
+      city2 = City.new({:name => "LA", :train_id => train1.id, :id => nil})
+      city2.save()
+      expect(train1.cities).to(eq([city1, city2]))
+    end
+  end
   
 end
