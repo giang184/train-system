@@ -1,10 +1,17 @@
 body {
   background:#1d89aa;
-  background-image: url("https://image.freepik.com/free-vector/railway-station-empty-railroad-platform-train_107791-1299.jpg");
+  background-image: url("https://image.freepik.com/free-vector/wild-west-steam-train-night-western-town-with-railroad-vintage-locomotive-desert-landscape-cacti-old-wooden-city-buildings-hotel-post-saloon-sheriff-church-cartoon-illustration_107791-3579.jpg");
 }
 .container {
-  background-color:white;
-  margin-top: 80px;
+  background-color:rgb(199, 238, 241);
+  margin-top: 70px;
+  margin-bottom: 70px;
   min-height: 80vh;
+  padding-top: 30px;
+  scroll-padding-bottom: 30px;
   padding-left: 50px;
+  padding-right: 50px;
+}
+.navbar{
+  background-color:rgb(70, 66, 54);
 }

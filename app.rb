@@ -14,16 +14,15 @@ get '/' do
   erb(:index)
 end
 
-# I don't think we need these anymore
-# get ('/trains') do
-#   @trains = Train.all
-#   erb(:trains)
-# end
+get ('/trains') do
+  @trains = Train.all
+  erb(:trains)
+end
 
-# get ('/cities') do
-#   @cities = City.all
-#   erb(:cities)
-# end
+get ('/cities') do
+  @cities = City.all
+  erb(:cities)
+end
 
 get ('/trains/new') do
   erb(:new_train)
