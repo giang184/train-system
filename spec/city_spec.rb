@@ -53,20 +53,21 @@ describe '#City' do
       expect(City.find(city1.id)).to(eq(city1))
     end
   end
+  
   describe('#update') do
     it("updates a city by id") do
-      city1 = City.new({:name => "Portland", :train_id => @train.id, :id => nil})
+      city1 = City.new({:name => "Portland", :id => nil})
       city1.save()
-      city1.update("Seattle", @train.id)
+      city1.update({:name => "Seattle"})
       expect(city1.name).to(eq("Seattle"))
     end
   end
 
   describe('#delete') do
     it("deletes a city by id") do
-      city1 = City.new({:name => "Portland", :train_id => @train.id, :id => nil})
+      city1 = City.new({:name => "Portland", :id => nil})
       city1.save()
-      city2 = City.new({:name => "LA", :train_id => @train.id, :id => nil})
+      city2 = City.new({:name => "LA", :id => nil})
       city2.save()
       city1.delete()
       expect(City.all).to(eq([city2]))
@@ -75,21 +76,21 @@ describe '#City' do
 
   describe('.find_by_train') do
     it("finds cities for a train") do
-      train2 = Train.new({:name => "Hoo Hoo", :id => nil})
-      train2.save
-      city1 = City.new({:name => "Portland", :train_id => @train.id, :id => nil})
+      train1 = Train.new({:name => "Hoo Hoo", :id => nil})
+      train1.save
+      city1 = City.new({:name => "Portland", :id => nil})
       city1.save()
-      city2 = City.new({:name => "LA", :train_id => train2.id, :id => nil})
-      city2.save()
-      expect(City.find_by_train(train2.id)).to(eq([city2]))
+      DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{train1.id.to_i}, #{city1.id.to_i});")
+      expect(City.find_by_train(train1.id)).to(eq([city1.name]))
     end
   end
 
-  describe('#train') do
+  describe('#trains') do
     it("finds the train a city belongs to") do
-      city = City.new({:name => "LA", :train_id => @train.id, :id => nil})
+      city = City.new({:name => "LA", :id => nil})
       city.save()
-      expect(city.train()).to(eq(@train))
+      DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{@train.id.to_i}, #{city.id.to_i});")
+      expect(city.trains()[0]).to(eq(@train))
     end
   end
 end

@@ -58,26 +58,18 @@ describe '#Train' do
     end
   end
 
-  describe('#delete') do
-    it("deletes all cities belonging to a deleted train") do
-      train1 = Train.new({:name => "Choo Choo", :id => nil})
-      train1.save()
-      city1 = City.new({:name => "Portland", :train_id => train1.id, :id => nil})
-      city1.save()
-      train1.delete()
-      expect(City.find(city1.id)).to(eq(nil))
-    end
-  end
-
   describe('#cities') do
     it("returns a train's cities") do
       train1 = Train.new({:name => "Choo Hoo", :id => nil})
       train1.save()
-      city1 = City.new({:name => "Phoenix", :train_id => train1.id, :id => nil})
+      city1 = City.new({:name => "Phoenix", :id => nil})
       city1.save()
-      city2 = City.new({:name => "LA", :train_id => train1.id, :id => nil})
+      city2 = City.new({:name => "LA", :id => nil})
       city2.save()
-      expect(train1.cities).to(eq([city1, city2]))
+
+      DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{train1.id.to_i}, #{city1.id.to_i});")
+      DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{train1.id.to_i}, #{city2.id.to_i});")
+      expect(train1.cities).to(eq(["Phoenix", "LA"]))
     end
   end
   

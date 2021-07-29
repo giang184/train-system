@@ -1,0 +1,17 @@
+<h2>City Name: <%= @city.name %></h2>
+
+<h3>Trains Available:</h3>
+
+  <% if @city.trains.length > 0%>
+    <ul>
+      <% @city.trains.each do |train| %>
+        <li><a href="/trains/<%= train.id %>"><%= train.name %></a></li>
+      <% end %>
+    </ul>
+  <% else %>
+    <p>There are no trains listed for this station yet.</p>
+  <% end %>
+<br>
+<p><a href="/cities/<%= @city.id %>/edit">Edit city</a></p>
+<p><a href="/cities/<%= @city.id %>/add_train">Add a train for this station</a></p>
+<p><a href="/trains">Return to train list</a></p> 
