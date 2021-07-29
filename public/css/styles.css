@@ -1,0 +1,10 @@
+body {
+  background:#1d89aa;
+  background-image: url("https://image.freepik.com/free-vector/railway-station-empty-railroad-platform-train_107791-1299.jpg");
+}
+.container {
+  background-color:white;
+  margin-top: 80px;
+  min-height: 80vh;
+  padding-left: 50px;
+}

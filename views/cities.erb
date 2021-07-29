@@ -1,5 +1,6 @@
-<h1>Metro Transit Cities List</h1>
-<br>
+<h1>Metro Transit System</h1>
+
+<h3>Metro Transit Cities List</h3>
 <% if @cities.any? %>
   <ul>
     <% @cities.each do |city| %>
@@ -9,5 +10,7 @@
 <% else %>
   <p>There are currently no cities listed.</p>
 <% end %>
+
+<p><a href="/cities/new">Add a new city</a></p>
 <br>
-<a href="/cities/new">Add a new city</a>
+<p><a href="/">Return to Homepage</a></p>

@@ -9,18 +9,21 @@ require "pg"
 DB = PG.connect({ dbname: 'train_system', host: 'db', user: 'postgres', password: 'password' })
 
 get '/' do
-  redirect to('/trains')
-end
-
-get ('/trains') do
   @trains = Train.all
-  erb(:trains)
+  @cities = City.all
+  erb(:index)
 end
 
-get ('/cities') do
-  @cities = City.all
-  erb(:cities)
-end
+# I don't think we need these anymore
+# get ('/trains') do
+#   @trains = Train.all
+#   erb(:trains)
+# end
+
+# get ('/cities') do
+#   @cities = City.all
+#   erb(:cities)
+# end
 
 get ('/trains/new') do
   erb(:new_train)
@@ -30,7 +33,7 @@ post ('/trains') do
   name = params[:train_name]
   train = Train.new({:name => name, :id => nil})
   train.save
-  redirect to('/trains')
+  redirect to('/')
 end
 
 get ('/trains/:id') do
@@ -59,13 +62,13 @@ end
 patch ('/trains/:id') do
   @train = Train.find(params[:id].to_i())
   @train.update(params[:name])
-  redirect to('/trains')
+  erb(:train)
 end
 
 delete ('/trains/:id') do
   @train = Train.find(params[:id].to_i())
   @train.delete()
-  redirect to('/trains')
+  redirect to('/')
 end
 
 get ('/trains/:id') do
@@ -80,13 +83,13 @@ end
 patch ('/cities/:id') do
   @city = City.find(params[:id].to_i())
   @city.update({:name => params[:name]})
-  redirect to('/cities')
+  erb(:city)
 end
 
 delete ('/cities/:id') do
   @city = City.find(params[:id].to_i())
   @city.delete()
-  redirect to('/cities')
+  redirect to('/')
 end
 
 get ('/cities/:id') do
