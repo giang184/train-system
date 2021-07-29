@@ -17,6 +17,11 @@ get ('/trains') do
   erb(:trains)
 end
 
+get ('/cities') do
+  @cities = City.all
+  erb(:cities)
+end
+
 get ('/trains/new') do
   erb(:new_train)
 end
@@ -42,13 +47,13 @@ post ('/trains/:id/cities') do
   @train = Train.find(params[:id].to_i())
   city = City.new({:name => params[:city_name], :id => nil})
   city.save()
-  city.link(@train.id)
+  city.link(@train.id, params[:boarding_time].to_s())
   erb(:train)
 end
 
 get ('/trains/:id/cities/:city_id') do
   @city = City.find(params[:city_id].to_i())
-  erb(:city)
+  redirect to ("/cities/#{params[:city_id].to_i()}")
 end
 
 patch ('/trains/:id') do
@@ -65,4 +70,35 @@ end
 
 get ('/trains/:id') do
   redirect to("/trains/#{params[:id].to_i()}")
+end
+
+get ('/cities/:id/edit') do
+  @city = City.find(params[:id].to_i())
+  erb(:edit_city)
+end
+
+patch ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  @city.update({:name => params[:name]})
+  redirect to('/cities')
+end
+
+delete ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  @city.delete()
+  redirect to('/cities')
+end
+
+get ('/cities/:id') do
+  @city = City.find(params[:id].to_i())
+  erb(:city)
+end
+
+
+post ('/cities/:id/trains') do
+  @city = City.find(params[:id].to_i())
+  train = Train.new({:name => params[:train_name], :id => nil})
+  train.save()
+  @city.link(train.id, params[:boarding_time].to_s())
+  erb(:city)
 end

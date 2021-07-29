@@ -51,4 +51,8 @@ class Train
   def cities
     City.find_by_train(self.id)
   end
+
+  def boarding (city_id)
+    DB.exec("SELECT boarding_time FROM cities_trains WHERE train_id = #{@id.to_i} AND city_id = #{city_id.to_i};").first
+  end
 end

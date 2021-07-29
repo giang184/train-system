@@ -87,7 +87,11 @@ class City
     trains
   end
 
-  def link(t_id)
-    DB.exec("INSERT INTO cities_trains (train_id, city_id) VALUES (#{t_id.to_i}, #{@id.to_i});")
+  def link(t_id, b_time)
+    DB.exec("INSERT INTO cities_trains (train_id, city_id, boarding_time) VALUES (#{t_id.to_i}, #{@id.to_i}, '#{b_time.to_s}');")
+  end
+
+  def boarding (train_id)
+    DB.exec("SELECT boarding_time FROM cities_trains WHERE city_id = #{@id.to_i} AND train_id = #{train_id.to_i};").first
   end
 end
